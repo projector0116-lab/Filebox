@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" href="./favicon.png">
 <link rel="apple-touch-icon" href="./favicon.png">
 <meta name="apple-mobile-web-app-title" content="ファイルBOX">
-  <style>
+<style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:#d4dce4;height:100vh;display:flex;flex-direction:column;overflow:hidden;user-select:none}
 
@@ -37,7 +37,6 @@ header{
 .btn-r:active{transform:translateY(1px);background:linear-gradient(180deg,#e03d1f,#b8240b)}
 .s-info{color:#fff;font-size:12px;line-height:1.25;margin-left:4px;white-space:nowrap;text-shadow:1px 1px 1px rgba(0,0,0,.35)}
 
-/* 実機写真に合わせてクラウドと「オンライン」を大きく調整 */
 .stat{display:flex;align-items:center;gap:8px;color:#fff;font-size:11px;font-weight:bold;line-height:1.1;text-align:center;white-space:nowrap;text-shadow:1px 1px 1px rgba(0,0,0,.4)}
 .cloud-img{width:38px;height:38px;object-fit:contain;flex-shrink:0}
 .online-box{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
@@ -66,7 +65,7 @@ header{
 .i-wrap{width:76px;height:68px;position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
 .i-wrap img.f-img{width:72px;height:56px;object-fit:fill}
 .i-wrap img.p-img{width:64px;height:64px;object-fit:contain}
-.i-tit{font-size:12px;color:#222;width:100%;line-height:1.3;word-break:break-all;text-align:center}
+.i-tit{font-size:12px;color:#222;width:100%;line-height:1.3;word-break:break-all;text-align:left}
 
 .empty-msg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#556;font-size:14px;line-height:1.8}
 </style>
@@ -155,7 +154,7 @@ function ren(){
   const tr=document.getElementById('tr');tr.innerHTML='';
   function wk(n,p,d){
     if(d>3)return;
-    Object.keys(n.c).sort().forEach(k=>{
+    Object.keys(n.c).sort((a,b)=>a.localeCompare(b,'ja')).forEach(k=>{
       const ch=n.c[k];
       const nx=[...p,k],ac=JSON.stringify(nx)===JSON.stringify(cp);
       const r=document.createElement('div');r.className='t-row'+(ac?' act':'');
@@ -169,20 +168,24 @@ function ren(){
   let cn=rt;cp.forEach(p=>{if(cn)cn=cn.c[p];});if(!cn)return;
   const gr=document.getElementById('gr');gr.innerHTML='';
 
-  Object.keys(cn.c).sort().forEach(k=>{
-    const el=document.createElement('div');el.className='g-item';
-    el.innerHTML=`<div class="i-wrap"><img src="./folder.png" class="f-img" alt=""></div><div class="i-tit">${k}</div>`;
-    el.onclick=()=>{cp=[...cp,k];ren();};
-    gr.appendChild(el);
-  });
+  /* 実機と同じく、フォルダとファイルを混ぜて名前順に並べる */
+  const items=[
+    ...Object.keys(cn.c).map(k=>({type:'dir',name:k})),
+    ...cn.f.map(f=>({type:'file',name:f.name,file:f}))
+  ].sort((a,b)=>a.name.localeCompare(b.name,'ja'));
 
-  cn.f.sort((a,b)=>a.name.localeCompare(b.name,'ja')).forEach(f=>{
+  items.forEach(it=>{
     const el=document.createElement('div');el.className='g-item';
-    el.innerHTML=`<div class="i-wrap"><img src="./pdf_64.png" class="p-img" alt=""></div><div class="i-tit">${f.name}</div>`;
-    el.onclick=()=>{
-      const url=URL.createObjectURL(f);
-      window.open(url,'_blank');
-    };
+    if(it.type==='dir'){
+      el.innerHTML=`<div class="i-wrap"><img src="./folder.png" class="f-img" alt=""></div><div class="i-tit">${it.name}</div>`;
+      el.onclick=()=>{cp=[...cp,it.name];ren();};
+    }else{
+      el.innerHTML=`<div class="i-wrap"><img src="./pdf_64.png" class="p-img" alt=""></div><div class="i-tit">${it.name}</div>`;
+      el.onclick=()=>{
+        const url=URL.createObjectURL(it.file);
+        window.open(url,'_blank');
+      };
+    }
     gr.appendChild(el);
   });
 }
