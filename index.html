@@ -69,6 +69,31 @@ header{
 .i-tit{font-size:12px;color:#222;width:100%;line-height:1.3;word-break:break-all;text-align:left}
 
 .empty-msg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#556;font-size:14px;line-height:1.8}
+
+/* 実機と同じ「ファイルダウンロード中...」ポップアップ */
+.dl-overlay{
+  display:none;position:fixed;inset:0;z-index:200;
+  align-items:center;justify-content:center;background:rgba(0,0,0,.05)
+}
+.dl-box{
+  width:460px;max-width:85%;background:rgba(242,244,247,.94);
+  border:1px solid #8c96a0;box-shadow:0 4px 16px rgba(0,0,0,.25);
+  padding:22px 28px 18px;display:flex;flex-direction:column
+}
+.dl-txt{font-size:15px;color:#222;margin-bottom:14px;text-align:left}
+.dl-bar-wrap{
+  width:100%;height:18px;background:#e6e6e6;border:1px solid #999;overflow:hidden;margin-bottom:18px
+}
+.dl-bar-fill{
+  height:100%;width:0%;background:linear-gradient(180deg,#5cd65c 0%,#2eb82e 50%,#248f24 100%);
+  transition:width .45s linear
+}
+.dl-cancel{
+  align-self:center;min-width:130px;padding:6px 18px;font-size:14px;color:#222;
+  background:linear-gradient(180deg,#f5f5f5 0%,#dcdcdc 100%);
+  border:1px solid #888;border-radius:2px;cursor:pointer
+}
+.dl-cancel:active{background:#ccc}
 </style>
 </head>
 <body>
@@ -89,7 +114,7 @@ header{
       </div>
     </div>
     <div class="inf-i">i</div>
-    <button class="img-btn" onclick="ren()"><img src="./update.png" class="btn-sq-img" alt="更新"></button>
+    <button class="img-btn" onclick="doUpdate()"><img src="./update.png" class="btn-sq-img" alt="更新"></button>
     <button class="img-btn" onclick="closeTab()"><img src="./btnClose.png" class="btn-sq-img" alt="閉じる"></button>
   </div>
 </header>
@@ -100,6 +125,16 @@ header{
     <div class="empty-msg" id="emp">左上の<strong>「まとめてダウンロード」</strong>を押して<br>iPad内のフォルダを選択してください</div>
   </div>
 </div>
+
+<!-- 0.5秒表示されるダウンロードダイアログ -->
+<div class="dl-overlay" id="dlOv">
+  <div class="dl-box">
+    <div class="dl-txt">ファイルダウンロード中...</div>
+    <div class="dl-bar-wrap"><div class="dl-bar-fill" id="dlBar"></div></div>
+    <button class="dl-cancel" onclick="hideDl()">キャンセル</button>
+  </div>
+</div>
+
 <script>
 (function(){
   const img=document.getElementById('bandImg');
@@ -116,6 +151,30 @@ header{
   if(img.complete&&img.naturalWidth)syncBand();
   else img.onload=syncBand;
 })();
+
+let dlTimer=null;
+function doUpdate(){
+  const ov=document.getElementById('dlOv');
+  const bar=document.getElementById('dlBar');
+  clearTimeout(dlTimer);
+  bar.style.transition='none';
+  bar.style.width='15%';
+  ov.style.display='flex';
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{
+      bar.style.transition='width .45s linear';
+      bar.style.width='85%';
+    });
+  });
+  dlTimer=setTimeout(()=>{
+    hideDl();
+    ren();
+  },500);
+}
+function hideDl(){
+  clearTimeout(dlTimer);
+  document.getElementById('dlOv').style.display='none';
+}
 
 function sanaruSort(a,b){
   const rank=s=>{
