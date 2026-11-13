@@ -10,20 +10,20 @@
 *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:#d4dce4;height:100vh;display:flex;flex-direction:column;overflow:hidden;user-select:none}
 
+/* 上の帯：画像と同じ色の縦ラインを右端まで100%引き伸ばして継ぎ目をゼロにする */
 header{
   position:relative;
-  background:linear-gradient(180deg,#2389eb 0%,#1475d8 49%,#0c63c4 50%,#0751ab 100%);
+  background-color:#0e72dc;
+  background-repeat:repeat-x;
+  background-size:auto 100%;
   height:60px;padding:0 14px 0 320px;display:flex;align-items:center;justify-content:space-between;
-  border-bottom:2px solid #043b80;box-shadow:0 2px 5px rgba(0,0,0,.3);z-index:10
+  box-shadow:0 2px 5px rgba(0,0,0,.3);z-index:10
 }
 .band-img{
   position:absolute;left:0;top:0;height:100%;width:auto;pointer-events:none;z-index:0;
-  -webkit-mask-image:linear-gradient(to right,#000 82%,transparent 100%);
-  mask-image:linear-gradient(to right,#000 82%,transparent 100%);
 }
 .hl,.hr{position:relative;z-index:1;display:flex;align-items:center;gap:10px}
 
-/* 滑らかな立体グラデーションボタン */
 .btn-r{
   background:linear-gradient(180deg,#ff9a76 0%,#f5623d 45%,#e03d1f 55%,#b8240b 100%);
   border:1px solid #801504;border-radius:6px;color:#fff;font-size:11px;font-weight:bold;
@@ -41,7 +41,6 @@ header{
 .img-btn:active{transform:scale(.95)}
 .btn-sq-img{height:42px;width:42px;object-fit:contain}
 
-/* 左側：接続線なしの横線区切りリスト */
 .main{display:flex;flex:1;overflow:hidden}
 .side{width:300px;background:#e4e9ef;border-right:2px solid #9daab8;overflow-y:auto;padding:0}
 .t-row{
@@ -54,7 +53,6 @@ header{
 .t-ico img{width:52px;height:40px;object-fit:fill}
 .t-lbl{font-size:13px;color:#222;line-height:1.3;word-break:break-word;flex:1}
 
-/* 右側グリッド：アイコンを大きめに拡大 */
 .cont{flex:1;background:linear-gradient(180deg,#dbe2ea,#cfd8e2);padding:24px 28px;overflow-y:auto;position:relative}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:26px 20px}
 .g-item{display:flex;flex-direction:column;align-items:center;cursor:pointer}
@@ -67,8 +65,8 @@ header{
 </style>
 </head>
 <body>
-<header>
-  <img src="./ファイルBOX_帯.png" class="band-img" alt="">
+<header id="hdr">
+  <img src="./ファイルBOX_帯.png" id="bandImg" class="band-img" alt="">
   <div class="hl">
     <input type="file" id="fi" webkitdirectory directory multiple hidden>
     <button class="btn-r" onclick="document.getElementById('fi').click()">まとめて<br>ダウンロード</button>
@@ -90,6 +88,24 @@ header{
   </div>
 </div>
 <script>
+/* 帯画像の右端の色・グラデーションをそのまま抽出してヘッダー全体に延長 */
+(function(){
+  const img=document.getElementById('bandImg');
+  function syncBand(){
+    try{
+      const c=document.createElement('canvas');
+      c.width=1;c.height=img.naturalHeight;
+      const ctx=c.getContext('2d');
+      // 枠線の内側の列（右端から少し内側）をコピーして繰り返す
+      const x=Math.max(0,img.naturalWidth-6);
+      ctx.drawImage(img,x,0,1,img.naturalHeight,0,0,1,img.naturalHeight);
+      document.getElementById('hdr').style.backgroundImage=`url(${c.toDataURL()})`;
+    }catch(e){}
+  }
+  if(img.complete&&img.naturalWidth)syncBand();
+  else img.onload=syncBand;
+})();
+
 let rt=null,cp=[];
 
 function clr(){
