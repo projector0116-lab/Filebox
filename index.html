@@ -10,7 +10,7 @@
 *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:#d4dce4;height:100vh;display:flex;flex-direction:column;overflow:hidden;user-select:none}
 
-/* 上の帯：画像と同じ色の縦ラインを右端まで100%引き伸ばして継ぎ目をゼロにする */
+/* 上の帯：右端の枠線（3px）をカットして縦線のない完全な1本の帯にする */
 header{
   position:relative;
   background-color:#0e72dc;
@@ -21,6 +21,7 @@ header{
 }
 .band-img{
   position:absolute;left:0;top:0;height:100%;width:auto;pointer-events:none;z-index:0;
+  clip-path:inset(0 3px 0 0);
 }
 .hl,.hr{position:relative;z-index:1;display:flex;align-items:center;gap:10px}
 
@@ -88,7 +89,6 @@ header{
   </div>
 </div>
 <script>
-/* 帯画像の右端の色・グラデーションをそのまま抽出してヘッダー全体に延長 */
 (function(){
   const img=document.getElementById('bandImg');
   function syncBand(){
@@ -96,7 +96,6 @@ header{
       const c=document.createElement('canvas');
       c.width=1;c.height=img.naturalHeight;
       const ctx=c.getContext('2d');
-      // 枠線の内側の列（右端から少し内側）をコピーして繰り返す
       const x=Math.max(0,img.naturalWidth-6);
       ctx.drawImage(img,x,0,1,img.naturalHeight,0,0,1,img.naturalHeight);
       document.getElementById('hdr').style.backgroundImage=`url(${c.toDataURL()})`;
