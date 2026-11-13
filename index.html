@@ -13,7 +13,6 @@
 *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:#d4dce4;height:100vh;display:flex;flex-direction:column;overflow:hidden;user-select:none}
 
-/* ヘッダーの高さと上下中央揃えを厳密に固定 */
 header{
   position:relative;
   background-color:#0e72dc;
@@ -39,7 +38,6 @@ header{
 .btn-r:active{transform:translateY(1px);background:linear-gradient(180deg,#e03d1f,#b8240b)}
 .s-info{color:#fff;font-size:12px;line-height:1.25;margin-left:4px;white-space:nowrap;text-shadow:1px 1px 1px rgba(0,0,0,.35)}
 
-/* 上にはみ出さないよう高さをヘッダー内に収める */
 .stat{display:flex;align-items:center;gap:6px;color:#fff;font-size:10px;font-weight:bold;line-height:1.1;text-align:center;white-space:nowrap;text-shadow:1px 1px 1px rgba(0,0,0,.4)}
 .cloud-img{width:32px;height:32px;object-fit:contain;flex-shrink:0}
 .online-box{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
@@ -53,14 +51,15 @@ header{
 .main{display:flex;flex:1;overflow:hidden}
 .side{width:300px;background:#e4e9ef;border-right:2px solid #9daab8;overflow-y:auto;padding:0}
 .t-row{
-  display:flex;align-items:center;position:relative;min-height:58px;
-  border-bottom:1px solid #b8c2ce;padding:6px 10px 6px 14px;cursor:pointer;background:#e8edf2
+  display:flex;align-items:center;position:relative;min-height:60px;
+  border-bottom:1px solid #b8c2ce;padding:8px 10px 8px 14px;cursor:pointer;background:#e8edf2
 }
 .t-row:hover{background:#f0f4f8}
 .t-row.act{background:#d4e4f7;font-weight:bold}
-.t-ico{width:52px;height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-right:10px}
+.t-ico{width:52px;height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-right:12px}
 .t-ico img{width:52px;height:40px;object-fit:fill}
-.t-lbl{font-size:13px;color:#222;line-height:1.3;word-break:break-word;flex:1}
+/* 左側の文字サイズを大きく（16px）に調整 */
+.t-lbl{font-size:16px;color:#222;line-height:1.3;word-break:break-word;flex:1}
 
 .cont{flex:1;background:linear-gradient(180deg,#dbe2ea,#cfd8e2);padding:24px 28px;overflow-y:auto;position:relative}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:26px 20px}
@@ -119,7 +118,6 @@ header{
   else img.onload=syncBand;
 })();
 
-/* 実機（さなる式タブレット）と同じ並び順ルール */
 function sanaruSort(a,b){
   const rank=s=>{
     const c=s.charAt(0);
