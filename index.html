@@ -10,15 +10,16 @@
 *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:#d4dce4;height:100vh;display:flex;flex-direction:column;overflow:hidden;user-select:none}
 
-/* 上の帯をヘッダー全体の背景として敷く */
+/* 上の帯：縦横比を保って左寄せし、残りは同じ青グラデーションで自然に繋ぐ */
 header{
-  background:url("./ファイルBOX_帯.png") no-repeat left center / 100% 100%, linear-gradient(180deg,#2998ff,#005ec4);
-  height:58px;padding:0 12px 0 215px;display:flex;align-items:center;justify-content:space-between;
+  background:
+    url("./ファイルBOX_帯.png") no-repeat left center / auto 100%,
+    linear-gradient(180deg,#2998ff 0%,#1482f0 49%,#006ee6 50%,#005ec4 100%);
+  height:58px;padding:0 12px 0 340px;display:flex;align-items:center;justify-content:space-between;
   border-bottom:2px solid #004494;box-shadow:0 2px 5px rgba(0,0,0,.3);z-index:10
 }
 .hl,.hr{display:flex;align-items:center;gap:8px}
 
-/* ボタンの文字が変に改行されないように固定 */
 .btn-r{
   background:linear-gradient(180deg,#ff7559 0%,#f04832 49%,#d9321e 50%,#b82514 100%);
   border:1px solid #8f1b0d;border-radius:6px;color:#fff;font-size:11px;font-weight:bold;
