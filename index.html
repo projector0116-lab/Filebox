@@ -13,7 +13,7 @@ body{background:#d4dce4;height:100vh;display:flex;flex-direction:column;overflow
 header{
   position:relative;
   background:linear-gradient(180deg,#2389eb 0%,#1475d8 49%,#0c63c4 50%,#0751ab 100%);
-  height:58px;padding:0 14px 0 320px;display:flex;align-items:center;justify-content:space-between;
+  height:60px;padding:0 14px 0 320px;display:flex;align-items:center;justify-content:space-between;
   border-bottom:2px solid #043b80;box-shadow:0 2px 5px rgba(0,0,0,.3);z-index:10
 }
 .band-img{
@@ -23,13 +23,15 @@ header{
 }
 .hl,.hr{position:relative;z-index:1;display:flex;align-items:center;gap:10px}
 
+/* 滑らかな立体グラデーションボタン */
 .btn-r{
-  background:linear-gradient(180deg,#ff7559 0%,#f04832 49%,#d9321e 50%,#b82514 100%);
-  border:1px solid #8f1b0d;border-radius:6px;color:#fff;font-size:11px;font-weight:bold;
-  line-height:1.15;padding:5px 9px;min-width:78px;white-space:nowrap;cursor:pointer;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 1px 2px rgba(0,0,0,.3)
+  background:linear-gradient(180deg,#ff9a76 0%,#f5623d 45%,#e03d1f 55%,#b8240b 100%);
+  border:1px solid #801504;border-radius:6px;color:#fff;font-size:11px;font-weight:bold;
+  line-height:1.15;padding:6px 10px;min-width:82px;white-space:nowrap;cursor:pointer;
+  text-shadow:0 1px 1px rgba(0,0,0,.45);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.65),0 2px 3px rgba(0,0,0,.3)
 }
-.btn-r:active{transform:translateY(1px)}
+.btn-r:active{transform:translateY(1px);background:linear-gradient(180deg,#e03d1f,#b8240b)}
 .s-info{color:#fff;font-size:12px;line-height:1.25;margin-left:4px;white-space:nowrap;text-shadow:1px 1px 1px rgba(0,0,0,.35)}
 
 .stat{display:flex;align-items:center;gap:6px;color:#fff;font-size:12px;font-weight:bold;line-height:1.15;text-align:center;white-space:nowrap;text-shadow:1px 1px 1px rgba(0,0,0,.4)}
@@ -37,29 +39,31 @@ header{
 .inf-i{width:26px;height:26px;background:radial-gradient(circle at 35% 35%,#70c4ff,#1e88e5);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-family:serif;font-style:italic;font-size:16px;border:1.5px solid #fff;box-shadow:0 1px 2px rgba(0,0,0,.3);flex-shrink:0}
 .img-btn{cursor:pointer;border:none;background:none;padding:0;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .img-btn:active{transform:scale(.95)}
-.btn-sq-img{height:40px;width:40px;object-fit:contain}
+.btn-sq-img{height:42px;width:42px;object-fit:contain}
 
-/* 左側：接続線（棒）をなくした横線区切りリスト */
+/* 左側：接続線なしの横線区切りリスト */
 .main{display:flex;flex:1;overflow:hidden}
 .side{width:300px;background:#e4e9ef;border-right:2px solid #9daab8;overflow-y:auto;padding:0}
 .t-row{
-  display:flex;align-items:center;position:relative;min-height:54px;
+  display:flex;align-items:center;position:relative;min-height:58px;
   border-bottom:1px solid #b8c2ce;padding:6px 10px 6px 14px;cursor:pointer;background:#e8edf2
 }
 .t-row:hover{background:#f0f4f8}
 .t-row.act{background:#d4e4f7;font-weight:bold}
-.t-ico{width:46px;height:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-right:10px}
-.t-ico img{width:46px;height:36px;object-fit:fill}
+.t-ico{width:52px;height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-right:10px}
+.t-ico img{width:52px;height:40px;object-fit:fill}
 .t-lbl{font-size:13px;color:#222;line-height:1.3;word-break:break-word;flex:1}
 
-.cont{flex:1;background:linear-gradient(180deg,#dbe2ea,#cfd8e2);padding:20px 24px;overflow-y:auto}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:22px 16px}
+/* 右側グリッド：アイコンを大きめに拡大 */
+.cont{flex:1;background:linear-gradient(180deg,#dbe2ea,#cfd8e2);padding:24px 28px;overflow-y:auto;position:relative}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:26px 20px}
 .g-item{display:flex;flex-direction:column;align-items:center;cursor:pointer}
-.g-item.dim{opacity:.48}
-.i-wrap{width:60px;height:52px;position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:5px}
-.i-wrap img.f-img{width:56px;height:44px;object-fit:fill}
-.i-wrap img.p-img{width:48px;height:48px;object-fit:contain}
-.i-tit{font-size:11px;color:#222;width:100%;line-height:1.25;word-break:break-all;text-align:left}
+.i-wrap{width:76px;height:68px;position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+.i-wrap img.f-img{width:72px;height:56px;object-fit:fill}
+.i-wrap img.p-img{width:64px;height:64px;object-fit:contain}
+.i-tit{font-size:12px;color:#222;width:100%;line-height:1.3;word-break:break-all;text-align:center}
+
+.empty-msg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#556;font-size:14px;line-height:1.8}
 </style>
 </head>
 <body>
@@ -68,38 +72,42 @@ header{
   <div class="hl">
     <input type="file" id="fi" webkitdirectory directory multiple hidden>
     <button class="btn-r" onclick="document.getElementById('fi').click()">まとめて<br>ダウンロード</button>
-    <button class="btn-r" onclick="demo()">まとめて<br>クリア</button>
-    <div class="s-info" id="si">校舎:長久手本校<br>中１</div>
+    <button class="btn-r" onclick="clr()">まとめて<br>クリア</button>
+    <div class="s-info" id="si">フォルダ未選択<br>iPadから選択</div>
   </div>
   <div class="hr">
     <div class="stat"><div class="arr">⬇</div><div>オンライン<br><span style="font-size:10px">（一般）</span></div></div>
     <div class="inf-i">i</div>
     <button class="img-btn" onclick="ren()"><img src="./update.png" class="btn-sq-img" alt="更新"></button>
-    <button class="img-btn" onclick="demo()"><img src="./btnClose.png" class="btn-sq-img" alt="閉じる"></button>
+    <button class="img-btn" onclick="closeTab()"><img src="./btnClose.png" class="btn-sq-img" alt="閉じる"></button>
   </div>
 </header>
 <div class="main">
   <div class="side" id="tr"></div>
-  <div class="cont"><div class="grid" id="gr"></div></div>
+  <div class="cont">
+    <div class="grid" id="gr"></div>
+    <div class="empty-msg" id="emp">左上の<strong>「まとめてダウンロード」</strong>を押して<br>iPad内のフォルダを選択してください</div>
+  </div>
 </div>
 <script>
 let rt=null,cp=[];
-function demo(){
+
+function clr(){
+  rt=null;cp=[];
   document.getElementById('fi').value='';
-  document.getElementById('si').innerHTML='校舎:長久手本校<br>中１';
-  rt={c:{'中１':{c:{
-    '☆特訓会☆':{c:{
-      '★必勝！テスト対策★':{c:{},f:[]},
-      '☆特訓会☆':{c:{},f:[],d:1},'タブレット関連':{c:{},f:[],d:1},
-      'ハイレベル問題集':{c:{},f:[],d:1},'英語':{c:{},f:[],d:1},'校舎カレンダー・対策プログラム':{c:{},f:[],d:1},
-      '国語':{c:{},f:[],d:1},'社会':{c:{},f:[],d:1},'数学':{c:{},f:[],d:1},'数学チャレンジ解答・解説':{c:{},f:[],d:1},
-      '赤門セレクション用さなる式ハイレベル':{c:{},f:[],d:1},'定期テスト模擬':{c:{},f:[],d:1},'理科':{c:{},f:[],d:1}
-    },f:[{name:'★数学チャレンジ11月範囲表.pdf',dm:1},{name:'CameraMarkerURL.pdf',dm:1}]},
-    '国語':{c:{},f:[]},'「不便」の価値を見つめ直す':{c:{},f:[]},'今に生きる言葉':{c:{},f:[]},
-    '星の花が降るころに':{c:{},f:[]},'大人になれなかった弟たちに':{c:{},f:[]},'数学':{c:{},f:[]}
-  },f:[]}},f:[]};
-  cp=['中１','☆特訓会☆'];ren();
+  document.getElementById('tr').innerHTML='';
+  document.getElementById('gr').innerHTML='';
+  document.getElementById('emp').style.display='block';
+  document.getElementById('si').innerHTML='フォルダ未選択<br>iPadから選択';
 }
+
+function closeTab(){
+  window.close();
+  setTimeout(()=>{
+    document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#222;color:#fff;font-family:sans-serif;font-size:16px;">タブを閉じて終了してください</div>';
+  },150);
+}
+
 document.getElementById('fi').onchange=e=>{
   const fs=Array.from(e.target.files).filter(f=>!f.name.startsWith('.'));
   if(!fs.length)return;
@@ -110,15 +118,18 @@ document.getElementById('fi').onchange=e=>{
     n.f.push(f);
   });
   const ts=Object.keys(rt.c);cp=ts.length?[ts]:[];
+  document.getElementById('emp').style.display='none';
   document.getElementById('si').innerHTML=`フォルダ:${ts||''}<br>${fs.length}件`;
   ren();
 };
+
 function ren(){
+  if(!rt)return;
   const tr=document.getElementById('tr');tr.innerHTML='';
   function wk(n,p,d){
-    if(d>2)return;
-    Object.keys(n.c).forEach(k=>{
-      const ch=n.c[k];if(ch.d&&d>=2)return;
+    if(d>3)return;
+    Object.keys(n.c).sort().forEach(k=>{
+      const ch=n.c[k];
       const nx=[...p,k],ac=JSON.stringify(nx)===JSON.stringify(cp);
       const r=document.createElement('div');r.className='t-row'+(ac?' act':'');
       r.style.paddingLeft=(14+d*24)+'px';
@@ -127,26 +138,27 @@ function ren(){
     });
   }
   wk(rt,[],0);
+
   let cn=rt;cp.forEach(p=>{if(cn)cn=cn.c[p];});if(!cn)return;
   const gr=document.getElementById('gr');gr.innerHTML='';
-  Object.keys(cn.c).forEach(k=>{
-    const c=cn.c[k],el=document.createElement('div');el.className='g-item'+(c.d?' dim':'');
+
+  Object.keys(cn.c).sort().forEach(k=>{
+    const el=document.createElement('div');el.className='g-item';
     el.innerHTML=`<div class="i-wrap"><img src="./folder.png" class="f-img" alt=""></div><div class="i-tit">${k}</div>`;
-    el.onclick=()=>{if(c.d){alert('未ダウンロードです。左上の「まとめてダウンロード」からiPadのフォルダを選んでください。');return;}cp=[...cp,k];ren();};
+    el.onclick=()=>{cp=[...cp,k];ren();};
     gr.appendChild(el);
   });
-  cn.f.forEach(f=>{
+
+  cn.f.sort((a,b)=>a.name.localeCompare(b.name,'ja')).forEach(f=>{
     const el=document.createElement('div');el.className='g-item';
     el.innerHTML=`<div class="i-wrap"><img src="./pdf_64.png" class="p-img" alt=""></div><div class="i-tit">${f.name}</div>`;
     el.onclick=()=>{
-      if(f.dm){alert('サンプルです。左上の「まとめてダウンロード」からiPadのフォルダを指定してください。');return;}
       const url=URL.createObjectURL(f);
       window.open(url,'_blank');
     };
     gr.appendChild(el);
   });
 }
-demo();
 </script>
 </body>
 </html>
