@@ -10,49 +10,63 @@
 *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:#d4dce4;height:100vh;display:flex;flex-direction:column;overflow:hidden;user-select:none}
 
-/* 上の帯：縦横比を保って左寄せし、残りは同じ青グラデーションで自然に繋ぐ */
+/* 上の帯：背景色と継ぎ目が消えるよう右端をフェードさせて完全に一体化 */
 header{
-  background:
-    url("./ファイルBOX_帯.png") no-repeat left center / auto 100%,
-    linear-gradient(180deg,#2998ff 0%,#1482f0 49%,#006ee6 50%,#005ec4 100%);
-  height:58px;padding:0 12px 0 340px;display:flex;align-items:center;justify-content:space-between;
-  border-bottom:2px solid #004494;box-shadow:0 2px 5px rgba(0,0,0,.3);z-index:10
+  position:relative;
+  background:linear-gradient(180deg,#2389eb 0%,#1475d8 49%,#0c63c4 50%,#0751ab 100%);
+  height:58px;padding:0 14px 0 320px;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:2px solid #043b80;box-shadow:0 2px 5px rgba(0,0,0,.3);z-index:10
 }
-.hl,.hr{display:flex;align-items:center;gap:8px}
+.band-img{
+  position:absolute;left:0;top:0;height:100%;width:auto;pointer-events:none;z-index:0;
+  -webkit-mask-image:linear-gradient(to right,#000 82%,transparent 100%);
+  mask-image:linear-gradient(to right,#000 82%,transparent 100%);
+}
+.hl,.hr{position:relative;z-index:1;display:flex;align-items:center;gap:10px}
 
 .btn-r{
   background:linear-gradient(180deg,#ff7559 0%,#f04832 49%,#d9321e 50%,#b82514 100%);
   border:1px solid #8f1b0d;border-radius:6px;color:#fff;font-size:11px;font-weight:bold;
-  line-height:1.15;padding:5px 8px;min-width:76px;white-space:nowrap;cursor:pointer;
+  line-height:1.15;padding:5px 9px;min-width:78px;white-space:nowrap;cursor:pointer;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 1px 2px rgba(0,0,0,.3)
 }
 .btn-r:active{transform:translateY(1px)}
 .s-info{color:#fff;font-size:12px;line-height:1.25;margin-left:4px;white-space:nowrap;text-shadow:1px 1px 1px rgba(0,0,0,.35)}
 
-.stat{display:flex;align-items:center;gap:5px;color:#fff;font-size:11px;font-weight:bold;line-height:1.15;text-align:center;white-space:nowrap;text-shadow:1px 1px 1px rgba(0,0,0,.4)}
+.stat{display:flex;align-items:center;gap:6px;color:#fff;font-size:12px;font-weight:bold;line-height:1.15;text-align:center;white-space:nowrap;text-shadow:1px 1px 1px rgba(0,0,0,.4)}
 .arr{width:22px;height:22px;background:#0a4b99;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid #75baff;font-size:12px;flex-shrink:0}
 .inf-i{width:26px;height:26px;background:radial-gradient(circle at 35% 35%,#70c4ff,#1e88e5);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-family:serif;font-style:italic;font-size:16px;border:1.5px solid #fff;box-shadow:0 1px 2px rgba(0,0,0,.3);flex-shrink:0}
 .img-btn{cursor:pointer;border:none;background:none;padding:0;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .img-btn:active{transform:scale(.95)}
 .btn-sq-img{height:40px;width:40px;object-fit:contain}
 
+/* 左側：実機と同じ横線区切りの表スタイル */
 .main{display:flex;flex:1;overflow:hidden}
-.side{width:290px;background:#e6ebf0;border-right:2px solid #b5c2cf;overflow-y:auto;padding:10px 8px}
-.t-row{display:flex;align-items:center;position:relative;margin-bottom:6px;cursor:pointer}
-.t-line{position:absolute;top:-10px;bottom:50%;width:14px;border-left:2px solid #9aa8b6;border-bottom:2px solid #9aa8b6}
-.t-card{flex:1;min-width:0;background:#f7f9fb;border:1px solid #c2cdd8;border-radius:4px;padding:6px 10px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 1px rgba(0,0,0,.04)}
-.t-row.act .t-card{background:#fff;border:2px solid #1482f0;font-weight:bold}
-.t-ico{width:34px;height:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.t-ico img{width:100%;height:100%;object-fit:contain}
-.t-lbl{font-size:12px;color:#222;line-height:1.3;word-break:break-word;flex:1}
+.side{width:300px;background:#e4e9ef;border-right:2px solid #9daab8;overflow-y:auto;padding:0}
+.t-row{
+  display:flex;align-items:center;position:relative;min-height:54px;
+  border-bottom:1px solid #b8c2ce;padding:6px 10px 6px 12px;cursor:pointer;background:#e8edf2
+}
+.t-row:hover{background:#f0f4f8}
+.t-row.act{background:#d4e4f7;font-weight:bold}
+.t-branch{position:relative;width:24px;height:42px;flex-shrink:0}
+.t-branch::before{content:"";position:absolute;left:10px;top:-12px;bottom:50%;border-left:2px solid #8c9aa8}
+.t-branch::after{content:"";position:absolute;left:10px;top:50%;width:12px;border-top:2px solid #8c9aa8}
+.t-ico{width:46px;height:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-right:10px}
+.t-ico img{width:46px;height:36px;object-fit:fill}
+.t-lbl{font-size:13px;color:#222;line-height:1.3;word-break:break-word;flex:1}
+
+/* 右側グリッド：フォルダが引き伸ばされない横長比率に修正 */
 .cont{flex:1;background:linear-gradient(180deg,#dbe2ea,#cfd8e2);padding:20px 24px;overflow-y:auto}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:22px 16px}
 .g-item{display:flex;flex-direction:column;align-items:center;cursor:pointer}
 .g-item.dim{opacity:.48}
-.i-wrap{width:58px;height:56px;position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:5px}
-.i-wrap img{width:52px;height:52px;object-fit:contain}
-.chk{position:absolute;bottom:2px;left:2px;width:16px;height:16px;background:#fff;border:1px solid #555;border-radius:2px;color:#2e7d32;font-size:12px;font-weight:bold;display:flex;align-items:center;justify-content:center}
+.i-wrap{width:60px;height:52px;position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:5px}
+.i-wrap img.f-img{width:56px;height:44px;object-fit:fill}
+.i-wrap img.p-img{width:48px;height:48px;object-fit:contain}
+.chk{position:absolute;bottom:1px;left:1px;width:16px;height:16px;background:#fff;border:1px solid #555;border-radius:2px;color:#2e7d32;font-size:12px;font-weight:bold;display:flex;align-items:center;justify-content:center}
 .i-tit{font-size:11px;color:#222;width:100%;line-height:1.25;word-break:break-all;text-align:left}
+
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:100;flex-direction:column}
 .m-hd{background:#006ee6;color:#fff;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:bold}
 iframe{flex:1;width:100%;border:none;background:#fff}
@@ -60,6 +74,7 @@ iframe{flex:1;width:100%;border:none;background:#fff}
 </head>
 <body>
 <header>
+  <img src="./ファイルBOX_帯.png" class="band-img" alt="">
   <div class="hl">
     <input type="file" id="fi" webkitdirectory directory multiple hidden>
     <button class="btn-r" onclick="document.getElementById('fi').click()">まとめて<br>ダウンロード</button>
@@ -119,9 +134,10 @@ function ren(){
     Object.keys(n.c).forEach(k=>{
       const ch=n.c[k];if(ch.d&&d>=2)return;
       const nx=[...p,k],ac=JSON.stringify(nx)===JSON.stringify(cp);
-      const r=document.createElement('div');r.className='t-row'+(ac?' act':'');r.style.paddingLeft=(d*22)+'px';
-      const ln=d>0?`<div class="t-line" style="left:${(d*22)-12}px"></div>`:'';
-      r.innerHTML=`${ln}<div class="t-card"><div class="t-ico"><img src="./folder.png" alt=""></div><div class="t-lbl">${k}</div></div>`;
+      const r=document.createElement('div');r.className='t-row'+(ac?' act':'');
+      let indent='';
+      for(let i=0;i<d;i++){indent+=`<div class="t-branch"></div>`;}
+      r.innerHTML=`${indent}<div class="t-ico"><img src="./folder.png" alt=""></div><div class="t-lbl">${k}</div>`;
       r.onclick=()=>{cp=nx;ren();};tr.appendChild(r);wk(ch,nx,d+1);
     });
   }
@@ -130,13 +146,13 @@ function ren(){
   const gr=document.getElementById('gr');gr.innerHTML='';
   Object.keys(cn.c).forEach(k=>{
     const c=cn.c[k],el=document.createElement('div');el.className='g-item'+(c.d?' dim':'');
-    el.innerHTML=`<div class="i-wrap"><img src="./folder.png" alt="">${c.k?'<div class="chk">✓</div>':''}</div><div class="i-tit">${k}</div>`;
+    el.innerHTML=`<div class="i-wrap"><img src="./folder.png" class="f-img" alt="">${c.k?'<div class="chk">✓</div>':''}</div><div class="i-tit">${k}</div>`;
     el.onclick=()=>{if(c.d){alert('未ダウンロードです。左上の「まとめてダウンロード」からiPadのフォルダを選んでください。');return;}cp=[...cp,k];ren();};
     gr.appendChild(el);
   });
   cn.f.forEach(f=>{
     const el=document.createElement('div');el.className='g-item';
-    el.innerHTML=`<div class="i-wrap"><img src="./pdf_64.png" alt="">${(f.k||!f.dm)?'<div class="chk">✓</div>':''}</div><div class="i-tit">${f.name}</div>`;
+    el.innerHTML=`<div class="i-wrap"><img src="./pdf_64.png" class="p-img" alt="">${(f.k||!f.dm)?'<div class="chk">✓</div>':''}</div><div class="i-tit">${f.name}</div>`;
     el.onclick=()=>{if(f.dm){alert('サンプルです。左上の「まとめてダウンロード」からiPadのフォルダを指定してください。');return;}document.getElementById('mt').textContent=f.name;document.getElementById('pf').src=URL.createObjectURL(f);document.getElementById('md').style.display='flex';};
     gr.appendChild(el);
   });
