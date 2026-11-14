@@ -71,11 +71,6 @@ header{
 
 .empty-msg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#556;font-size:14px;line-height:1.8}
 
-/* 仕様：5回に1回起こる一瞬の再描画点滅 */
-.flicker-cover{
-  display:none;position:absolute;inset:0;background:rgba(245,248,252,.85);z-index:50;pointer-events:none
-}
-
 .dl-overlay{
   display:none;position:fixed;inset:0;z-index:200;
   align-items:center;justify-content:center;background:transparent
@@ -126,7 +121,6 @@ header{
   <div class="side" id="tr"></div>
   <div class="cont">
     <div class="grid" id="gr"></div>
-    <div class="flicker-cover" id="flk"></div>
     <div class="empty-msg" id="emp">左上の<strong>「まとめてダウンロード」</strong>を押して<br>iPad内のフォルダを選択してください</div>
   </div>
 </div>
@@ -180,12 +174,12 @@ function hideDl(){
   document.getElementById('dlOv').style.display='none';
 }
 
-/* 仕様：フォルダ移動時に5回に1回（20%）の確率で0.06秒だけ一瞬点滅させる */
+/* 仕様：フォルダ移動時に5回に1回（20%）の確率で右側のフォルダ群だけが一瞬消える */
 function triggerFlicker(){
   if(Math.random()<0.2){
-    const flk=document.getElementById('flk');
-    flk.style.display='block';
-    setTimeout(()=>{flk.style.display='none';},60);
+    const gr=document.getElementById('gr');
+    gr.style.visibility='hidden';
+    setTimeout(()=>{gr.style.visibility='visible';},60);
   }
 }
 
