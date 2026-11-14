@@ -70,7 +70,6 @@ header{
 
 .empty-msg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#556;font-size:14px;line-height:1.8}
 
-/* 実機と同じ「ファイルダウンロード中...」ポップアップ */
 .dl-overlay{
   display:none;position:fixed;inset:0;z-index:200;
   align-items:center;justify-content:center;background:rgba(0,0,0,.05)
@@ -86,7 +85,7 @@ header{
 }
 .dl-bar-fill{
   height:100%;width:0%;background:linear-gradient(180deg,#5cd65c 0%,#2eb82e 50%,#248f24 100%);
-  transition:width .45s linear
+  transition:width .18s linear
 }
 .dl-cancel{
   align-self:center;min-width:130px;padding:6px 18px;font-size:14px;color:#222;
@@ -126,7 +125,6 @@ header{
   </div>
 </div>
 
-<!-- 0.5秒表示されるダウンロードダイアログ -->
 <div class="dl-overlay" id="dlOv">
   <div class="dl-box">
     <div class="dl-txt">ファイルダウンロード中...</div>
@@ -162,14 +160,14 @@ function doUpdate(){
   ov.style.display='flex';
   requestAnimationFrame(()=>{
     requestAnimationFrame(()=>{
-      bar.style.transition='width .45s linear';
+      bar.style.transition='width .18s linear';
       bar.style.width='85%';
     });
   });
   dlTimer=setTimeout(()=>{
     hideDl();
     ren();
-  },500);
+  },200);
 }
 function hideDl(){
   clearTimeout(dlTimer);
